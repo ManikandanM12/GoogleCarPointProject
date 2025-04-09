@@ -16,7 +16,7 @@ const app = express();
 
 const allowedOrigins = [
   'https://zippy-youtiao-283e87.netlify.app',
-  'http://localhost:3000'
+  'http://localhost:3000',"https://gcarpoint.netlify.app"
 ];
 
 app.use(
