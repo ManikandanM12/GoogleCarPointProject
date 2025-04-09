@@ -14,9 +14,20 @@ const activityRoutes = require("./routes/useractivity.js");
 
 const app = express();
 
+const allowedOrigins = [
+  'https://zippy-youtiao-283e87.netlify.app',
+  'http://localhost:3000'
+];
+
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
   })
 );
