@@ -2,7 +2,7 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
-
+const verifyToken=require("./verifyToken");
 const router = express.Router();
 const JWT_SECRET = "your-secret-key";
 
@@ -62,7 +62,7 @@ router.post("/logout", (req, res) => {
 });
 
 // Auth check
-router.get("/me", async (req, res) => {
+router.get("/me",verifyToken, async (req, res) => {
   const token = req.cookies.token;
   if (!token) return res.status(401).json({ message: "Not authenticated" });
 
@@ -74,5 +74,7 @@ router.get("/me", async (req, res) => {
     res.status(403).json({ message: "Invalid token" });
   }
 });
+
+
 
 module.exports = router;
