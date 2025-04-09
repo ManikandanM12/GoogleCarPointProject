@@ -1,5 +1,5 @@
 const express = require('express');
-const Checkin = require('../models/CheckIn'); // Adjust the path as necessary
+const Checkin = require('../models/Checkin'); // Adjust the path as necessary
 
 const router = express.Router();
 

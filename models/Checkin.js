@@ -16,5 +16,5 @@ const checkInSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
-const CheckIn = mongoose.model('CheckIn', checkInSchema);
-module.exports = CheckIn;
+module.exports = mongoose.model('CheckIn', checkInSchema);
+
