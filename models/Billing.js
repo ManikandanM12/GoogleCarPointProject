@@ -20,6 +20,17 @@ const billingSchema = new mongoose.Schema({
     carNumber: {
         type: String,
         required: true,
+      },customer:{
+        type: String,
+        
+      },
+      phone:{
+        type: Number,
+        required: true,
+      },
+      selectedCategory:{
+        type: String,
+        
       },
     createdAt: {
       type: Date,
