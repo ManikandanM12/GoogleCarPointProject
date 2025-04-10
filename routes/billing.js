@@ -6,24 +6,24 @@ router.post("/", async (req, res) => {
   try {
     const billing = new Billing(req.body);
     await billing.save();
-    res
-      .status(200)
-      .json({ success: true, message: "Billing data saved to MongoDB!" });
+    res.status(200).json({ success: true, message: "Billing data saved to MongoDB!" });
   } catch (err) {
     console.error("Error saving to DB:", err);
     res.status(500).json({ message: "Failed to save billing" });
   }
 });
-router.get("/api/billing", async (req, res) => {
+
+router.get("/", async (req, res) => {
   try {
-    const bills = await Billing.find().sort({ createdAt: -1 }); // latest first
+    const bills = await Billing.find().sort({ createdAt: -1 });
     res.status(200).json(bills);
   } catch (err) {
     console.error("Error fetching bills:", err);
     res.status(500).json({ message: "Failed to fetch billing records" });
   }
 });
-router.get("/api/billing/search/:carNumber", async (req, res) => {
+
+router.get("/search/:carNumber", async (req, res) => {
   try {
     const bills = await Billing.find({ carNumber: req.params.carNumber });
     res.status(200).json(bills);
@@ -43,30 +43,30 @@ router.get("/dashboard", async (req, res) => {
 
     const dailyTotal = bills
       .filter((bill) => new Date(bill.createdAt) >= startOfDay)
-      .reduce((acc, curr) => acc + curr.totalAmount, 0);
+      .reduce((acc, curr) => acc + (curr.totalAmount || 0), 0);
 
     const monthlyTotal = bills
       .filter((bill) => new Date(bill.createdAt) >= startOfMonth)
-      .reduce((acc, curr) => acc + curr.totalAmount, 0);
+      .reduce((acc, curr) => acc + (curr.totalAmount || 0), 0);
 
     const yearlyTotal = bills
       .filter((bill) => new Date(bill.createdAt) >= startOfYear)
-      .reduce((acc, curr) => acc + curr.totalAmount, 0);
+      .reduce((acc, curr) => acc + (curr.totalAmount || 0), 0);
 
     const carFrequency = {};
     bills.forEach((bill) => {
-      const car = bill.carNumber.toUpperCase();
-      carFrequency[car] = (carFrequency[car] || 0) + 1;
+      const car = bill.carNumber?.toUpperCase();
+      if (car) carFrequency[car] = (carFrequency[car] || 0) + 1;
     });
 
-    res.json({
+    res.status(200).json({
       dailyTotal,
       monthlyTotal,
       yearlyTotal,
       carFrequency,
     });
   } catch (error) {
-    console.error(error);
+    console.error("Dashboard error:", error);
     res.status(500).json({ message: "Server Error" });
   }
 });
