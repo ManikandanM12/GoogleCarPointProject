@@ -28,10 +28,7 @@ const billingSchema = new mongoose.Schema({
         type: Number,
         required: true,
       },
-      selectedCategory:{
-        type: String,
-        
-      },
+     
     createdAt: {
       type: Date,
       default: Date.now,
