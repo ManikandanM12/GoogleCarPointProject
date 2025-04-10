@@ -34,7 +34,7 @@ mongoose
 
 app.use("/api/auth", authRoutes);
 app.use("/api/billing", billingRoutes);
-app.use("/", billingRoutes);
+// app.use("/", billingRoutes);
 app.use("/api/checkin", checkinRoutes);
 app.use("/api/appointments", appointmentRoutes);
 app.use("/api/job-orders", jobOrdersRoute);
