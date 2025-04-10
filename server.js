@@ -17,7 +17,7 @@ const app = express();
 
 
 app.use(cors({
-  origin: ["https://gcarpoint.netlify.app","https://google-car-point-frontend.vercel.app/"],
+  origin: ["https://gcarpoint.netlify.app","https://google-car-point-frontend.vercel.app"],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
