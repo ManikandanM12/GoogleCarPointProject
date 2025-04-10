@@ -75,7 +75,7 @@ router.get("/stats", async (req, res) => {
   try {
     const totalBills = await Billing.countDocuments();
     const totalAmount = await Billing.aggregate([
-      { $group: { _id: null, total: { $sum: "$amount" } } },
+      { $group: { _id: null, total: { $sum: "$totalAmount" } } },
     ]);
 
     res.status(200).json({
