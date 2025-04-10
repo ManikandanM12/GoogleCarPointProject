@@ -64,13 +64,9 @@ router.post("/logout", (req, res) => {
 });
 
 // Auth check
-router.get("/me",verifyToken, async (req, res) => {
-  const token = req.cookies.token;
-  if (!token) return res.status(401).json({ message: "Not authenticated" });
-
+router.get("/me", verifyToken, async (req, res) => {
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await User.findById(decoded.id).select("-password");
+    const user = await User.findById(req.user.id).select("-password");
     res.json(user);
   } catch (err) {
     res.status(403).json({ message: "Invalid token" });
