@@ -32,7 +32,7 @@ router.get("/api/billing/search/:carNumber", async (req, res) => {
   }
 });
 
-router.get("api/billing/dashboard", async (req, res) => {
+router.get("/api/billing/dashboard", async (req, res) => {
   try {
     const bills = await Billing.find();
 
